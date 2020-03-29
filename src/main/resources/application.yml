@@ -1,0 +1,11 @@
+
+#服务端口号
+server:
+  port: 8080
+
+person:
+  name: Jerry
+  age: 24
+  phone:
+    -17621732503
+    -17396732503
