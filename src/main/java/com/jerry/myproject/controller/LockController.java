@@ -1,5 +1,6 @@
 package com.jerry.myproject.controller;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -9,22 +10,35 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class LockController {
 
-    /**
-     * 悲观锁
-     */
-    // 需要保证多个线程使用的是同一个锁
+    /*--------------悲观锁--------------*/
+
+
+    // 1、需要保证多个线程使用的是同一个锁
     private ReentrantLock lock = new ReentrantLock();
+
     public void modifyPublicResources() {
         lock.lock();
 
         // 操作同步资源
 
-
         lock.unlock();
     }
 
-    // synchronized
+
+    // 2、synchronized
     public synchronized void testMethod() {
         // 操作同步资源
     }
+
+
+    /*--------------乐观锁--------------*/
+
+    public void Atomic() {
+        // 需要保证多个线程使用的是同一个AtomicInteger
+        AtomicInteger atomicInteger = new AtomicInteger();
+
+        atomicInteger.incrementAndGet(); //执行自增1
+    }
+
+
 }
