@@ -1,6 +1,6 @@
 package com.jerry.myproject.controller;
 
-import com.jerry.myproject.server.impl.UserService1;
+import com.jerry.myproject.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +16,14 @@ public class UserController {
 
 
     @Autowired
-    private UserService1 userService;
+    private UserService userService;
 
 
+    /**
+     * 统计用户数量 测试多实现
+     *
+     * @return
+     */
     @RequestMapping("/countUser")
     public Integer countUser() {
 
@@ -26,6 +31,8 @@ public class UserController {
         System.out.println(num);
         return num;
     }
+
+
 
 
 }
