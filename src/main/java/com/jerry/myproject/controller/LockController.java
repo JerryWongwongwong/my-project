@@ -1,5 +1,7 @@
 package com.jerry.myproject.controller;
 
+import org.springframework.beans.factory.InitializingBean;
+
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -8,7 +10,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @date 03/07/2020 11:13
  * @desc
  */
-public class LockController {
+public class LockController implements InitializingBean {
 
     /*--------------悲观锁--------------*/
 
@@ -41,4 +43,8 @@ public class LockController {
     }
 
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
+    }
 }

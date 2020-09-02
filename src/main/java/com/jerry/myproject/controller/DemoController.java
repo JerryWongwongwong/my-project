@@ -1,18 +1,18 @@
 package com.jerry.myproject.controller;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
-public class DemoController {
+public class DemoController implements InitializingBean {
 
 
-
+    static Integer initNum = 100;
 
     public static void main(String[] args) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -40,14 +40,28 @@ public class DemoController {
 
         return "hello!";
     }
+
+
+    /**
+     * demo
+     *
+     * @return
+     */
+    @RequestMapping("getNum")
+    public Integer getNum() {
+
+        return initNum;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        initNum = 101;
+    }
 //
 //    @RequestMapping("cacheDemo")
 //    public String cacheDemo() {
 //
-//        loadingCache.get();
-//
-//
-//
+//        loadingCache.get();\
 //    }
 
 }
