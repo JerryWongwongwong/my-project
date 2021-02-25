@@ -1,4 +1,4 @@
-package com.jerry.myproject.controller;
+package com.jerry.myproject.controller.thread;
 
 /**
  * @program: my-project
@@ -22,7 +22,7 @@ public class ThreadB implements Runnable {
         for (int i = 0; i < 5; i++) {
             System.out.println(name + "线程:" + i);
             try {
-                Thread.sleep((int) Math.random() * 10);
+                Thread.sleep( 1000);
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -33,11 +33,15 @@ public class ThreadB implements Runnable {
 
 
     public static void main(String[] args) {
-        ThreadB thread1 = new ThreadB("A");
-        ThreadB thread2 = new ThreadB("B");
+        ThreadB a = new ThreadB("A");
+        ThreadB a1 = new ThreadB("B");
 
-        thread1.run();
-        thread2.run();
+        Thread thread = new Thread(a);
+        Thread thread2 = new Thread(a1);
+
+        thread.start();
+        thread2.start();
+
     }
 
 }

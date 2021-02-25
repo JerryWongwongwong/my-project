@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 @RestController
 public class DemoController implements InitializingBean {
@@ -56,6 +57,7 @@ public class DemoController implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         initNum = 101;
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
     }
 //
 //    @RequestMapping("cacheDemo")
@@ -63,5 +65,8 @@ public class DemoController implements InitializingBean {
 //
 //        loadingCache.get();\
 //    }
+
+
+//    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3, 6,5, TimeUnit.SECONDS, );
 
 }
