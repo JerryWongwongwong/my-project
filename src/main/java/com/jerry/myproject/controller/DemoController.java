@@ -1,12 +1,16 @@
 package com.jerry.myproject.controller;
 
+import com.jerry.myproject.config.RedisConfig;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 @RestController
 public class DemoController implements InitializingBean {
@@ -14,20 +18,20 @@ public class DemoController implements InitializingBean {
 
     static Integer initNum = 100;
 
-    public static void main(String[] args) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = null;
-        try {
-            date = simpleDateFormat.parse("2019-09-09 12:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        long time1 = date.getTime();
-        System.out.println(time1);
-
-        System.out.println(time1);
-
-    }
+//    public static void main(String[] args) {
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        Date date = null;
+//        try {
+//            date = simpleDateFormat.parse("2019-09-09 12:00:00");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        long time1 = date.getTime();
+//        System.out.println(time1);
+//
+//        System.out.println(time1);
+//
+//    }
 
 
     /**
@@ -56,6 +60,7 @@ public class DemoController implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         initNum = 101;
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
     }
 //
 //    @RequestMapping("cacheDemo")
@@ -63,5 +68,30 @@ public class DemoController implements InitializingBean {
 //
 //        loadingCache.get();\
 //    }
+
+
+//    ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3, 6,5, TimeUnit.SECONDS, );
+
+
+    public int[] twoSum(int[] nums, int target) {
+
+//        int nums[] = {2, 7, 11, 15};
+//        int target = 9;
+
+        for (int i = 0; i < nums.length; i++) {
+            int a = nums[i];
+            for (int j = 0; j < nums.length; j++) {
+                int num = nums[j];
+                if ((i != j) && (a + num == target)) {
+                    System.out.println("i=" + i);
+                    System.out.println("j=" + j);
+                    int res[] = {i, j};
+                    return res;
+                }
+            }
+        }
+        int c[] = {};
+        return c;
+    }
 
 }

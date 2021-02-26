@@ -29,6 +29,14 @@ class MyProjectApplicationTests {
     @Autowired
     private UserServiceImpl userService;
 
+    @Test
+    public void test(){
+        int a[] = {2,7,11,15};
+        int b = 9;
+        int[] ints = userService.twoSum(a, b);
+        System.out.println(ints);
+    }
+
 
     @Test
     void contextLoads() throws IOException, ExecutionException, InterruptedException {
@@ -58,9 +66,24 @@ class MyProjectApplicationTests {
     @Test
     void testAsync() throws InterruptedException {
         System.out.println("begin");
+        try {
+            getAa();
+            System.out.println("aaa");
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("end");
+        }
 
-        asyncMethod();
-        System.out.println("end");
+
+    }
+
+    private void getAa() {
+        try {
+            int i = 1 / 0;
+        }catch (Throwable e){
+
+            throw e;
+        }
     }
 
     @Async
@@ -160,7 +183,6 @@ class MyProjectApplicationTests {
     }
 
     //甄士东
-
 
 
 }
