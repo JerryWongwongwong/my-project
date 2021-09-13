@@ -1,4 +1,4 @@
-package com.jerry.myproject.controller;
+package com.jerry.myproject.controller.thread;
 
 /**
  * @program: my-project

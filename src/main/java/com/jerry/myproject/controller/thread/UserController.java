@@ -1,4 +1,4 @@
-package com.jerry.myproject.controller;
+package com.jerry.myproject.controller.thread;
 
 import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.jerry.myproject.dto.Student;

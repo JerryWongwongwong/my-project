@@ -1,4 +1,4 @@
-package com.jerry.myproject.controller;
+package com.jerry.myproject.controller.thread;
 
 import com.jerry.myproject.config.RedisConfig;
 import org.springframework.beans.factory.InitializingBean;
