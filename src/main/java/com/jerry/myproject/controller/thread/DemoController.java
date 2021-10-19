@@ -1,19 +1,11 @@
 package com.jerry.myproject.controller.thread;
 
-import com.jerry.myproject.config.RedisConfig;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-
 @RestController
-public class DemoController implements InitializingBean {
+public class DemoController {
 
 
     static Integer initNum = 100;
@@ -57,11 +49,7 @@ public class DemoController implements InitializingBean {
         return initNum;
     }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        initNum = 101;
-        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
-    }
+
 //
 //    @RequestMapping("cacheDemo")
 //    public String cacheDemo() {

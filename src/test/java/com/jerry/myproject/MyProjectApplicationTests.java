@@ -1,15 +1,13 @@
 package com.jerry.myproject;
 
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
-import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
-import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 
-import com.amazonaws.services.cognitoidp.model.*;
+import com.jerry.myproject.entity.Order;
 import com.jerry.myproject.server.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.kie.api.KieServices;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.annotation.Async;
@@ -30,8 +28,8 @@ class MyProjectApplicationTests {
     private UserServiceImpl userService;
 
     @Test
-    public void test(){
-        int a[] = {2,7,11,15};
+    public void test() {
+        int a[] = {2, 7, 11, 15};
         int b = 9;
         int[] ints = userService.twoSum(a, b);
         System.out.println(ints);
@@ -80,7 +78,7 @@ class MyProjectApplicationTests {
     private void getAa() {
         try {
             int i = 1 / 0;
-        }catch (Throwable e){
+        } catch (Throwable e) {
 
             throw e;
         }
@@ -113,76 +111,100 @@ class MyProjectApplicationTests {
     }
 
 
-    public AWSCognitoIdentityProvider getAmazonCognitoIdentityClient() {
-        ClasspathPropertiesFileCredentialsProvider propertiesFileCredentialsProvider =
-                new ClasspathPropertiesFileCredentialsProvider();
+    //    public AWSCognitoIdentityProvider getAmazonCognitoIdentityClient() {
+//        ClasspathPropertiesFileCredentialsProvider propertiesFileCredentialsProvider =
+//                new ClasspathPropertiesFileCredentialsProvider();
+//
+//        return AWSCognitoIdentityProviderClientBuilder.standard()
+//                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AKIARY66HDFOQ6UEXTMN", "L1Mb11q9Nri3UnITrCi512ebXwXcUy6cY5FiUIb0")))
+//                .withRegion("us-east-2")
+//                .build();
+//
+//    }
+//
+//    @Test
+//    public void testAwsCreateUser() {
+//
+//        AWSCognitoIdentityProvider cognitoClient = getAmazonCognitoIdentityClient();
+//
+//        AdminCreateUserRequest cognitoRequest = new AdminCreateUserRequest()
+//                .withUserPoolId("us-east-2_XEW6z7jV5")
+//                .withUsername("AWS-User")
+//                .withUserAttributes(
+//
+//                        new AttributeType()
+//                                .withName("email")
+//                                .withValue("jerrywongwongwong@gmail.com"),
+//                        new AttributeType()
+//                                .withName("name")
+//                                .withValue("jerry"),
+//                        new AttributeType()
+//                                .withName("family_name")
+//                                .withValue("wong"),
+////                        new AttributeType()
+////                                .withName("phone_number")
+////                                .withValue("+86-17621732503"),
+////                        new AttributeType()
+////                                .withName("custom:companyName")
+////                                .withValue("shenzhen"),
+////                        new AttributeType()
+////                                .withName("custom:companyPosition")
+////                                .withValue("boss"),
+//                        new AttributeType()
+//                                .withName("email_verified")
+//                                .withValue("true"))
+//                .withTemporaryPassword("Qwer1234")
+//                .withMessageAction("SUPPRESS")
+//                .withDesiredDeliveryMediums(DeliveryMediumType.EMAIL)
+//                .withForceAliasCreation(Boolean.FALSE);
+//
+//        AdminCreateUserResult createUserResult = cognitoClient.adminCreateUser(cognitoRequest);
+//        UserType cognitoUser = createUserResult.getUser();
+//        System.out.println(cognitoClient);
+//    }
+//
+//
+//    @Test
+//    public void testAwsUpdateUserPwd() {
+//
+//        AWSCognitoIdentityProvider cognitoClient = getAmazonCognitoIdentityClient();
+//
+//
+//        AdminSetUserPasswordRequest request = new AdminSetUserPasswordRequest()
+//                .withPassword("Yajun123")
+//                .withPermanent(true)
+//                .withUsername("AWS-User")
+//                .withUserPoolId("us-east-2_XEW6z7jV5");
+//
+//        AdminSetUserPasswordResult adminSetUserPasswordResult = cognitoClient.adminSetUserPassword(request);
+//        System.out.println(adminSetUserPasswordResult.getSdkResponseMetadata());
+//    }
 
-        return AWSCognitoIdentityProviderClientBuilder.standard()
-                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials("AKIARY66HDFOQ6UEXTMN", "L1Mb11q9Nri3UnITrCi512ebXwXcUy6cY5FiUIb0")))
-                .withRegion("us-east-2")
-                .build();
 
-    }
+
 
     @Test
-    public void testAwsCreateUser() {
+    public void testDrools() {
+        KieServices kieServices = KieServices.Factory.get();
+        KieContainer kieClasspathContainer = kieServices.getKieClasspathContainer();
+        //会话对象，用于和规则引擎交互
+        KieSession kieSession = kieClasspathContainer.newKieSession();
 
-        AWSCognitoIdentityProvider cognitoClient = getAmazonCognitoIdentityClient();
+        //构造订单对象，设置原始价格，由规则引擎根据优惠规则计算优惠后的价格
+        Order order = new Order();
+        order.setOriginalPrice(210D);
 
-        AdminCreateUserRequest cognitoRequest = new AdminCreateUserRequest()
-                .withUserPoolId("us-east-2_XEW6z7jV5")
-                .withUsername("AWS-User")
-                .withUserAttributes(
+        //将数据提供给规则引擎，规则引擎会根据提供的数据进行规则匹配
+        kieSession.insert(order);
 
-                        new AttributeType()
-                                .withName("email")
-                                .withValue("jerrywongwongwong@gmail.com"),
-                        new AttributeType()
-                                .withName("name")
-                                .withValue("jerry"),
-                        new AttributeType()
-                                .withName("family_name")
-                                .withValue("wong"),
-//                        new AttributeType()
-//                                .withName("phone_number")
-//                                .withValue("+86-17621732503"),
-//                        new AttributeType()
-//                                .withName("custom:companyName")
-//                                .withValue("shenzhen"),
-//                        new AttributeType()
-//                                .withName("custom:companyPosition")
-//                                .withValue("boss"),
-                        new AttributeType()
-                                .withName("email_verified")
-                                .withValue("true"))
-                .withTemporaryPassword("Qwer1234")
-                .withMessageAction("SUPPRESS")
-                .withDesiredDeliveryMediums(DeliveryMediumType.EMAIL)
-                .withForceAliasCreation(Boolean.FALSE);
+        //激活规则引擎，如果规则匹配成功则执行规则
+        kieSession.fireAllRules();
+        //关闭会话
+        kieSession.dispose();
 
-        AdminCreateUserResult createUserResult = cognitoClient.adminCreateUser(cognitoRequest);
-        UserType cognitoUser = createUserResult.getUser();
-        System.out.println(cognitoClient);
+        System.out.println("优惠前原始价格：" + order.getOriginalPrice() +
+                "，优惠后价格：" + order.getRealPrice());
     }
-
-
-    @Test
-    public void testAwsUpdateUserPwd() {
-
-        AWSCognitoIdentityProvider cognitoClient = getAmazonCognitoIdentityClient();
-
-
-        AdminSetUserPasswordRequest request = new AdminSetUserPasswordRequest()
-                .withPassword("Yajun123")
-                .withPermanent(true)
-                .withUsername("AWS-User")
-                .withUserPoolId("us-east-2_XEW6z7jV5");
-
-        AdminSetUserPasswordResult adminSetUserPasswordResult = cognitoClient.adminSetUserPassword(request);
-        System.out.println(adminSetUserPasswordResult.getSdkResponseMetadata());
-    }
-
-    //甄士东
 
 
 }

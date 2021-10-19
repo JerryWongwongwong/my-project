@@ -1,6 +1,6 @@
 package com.jerry.myproject.controller.thread;
 
-import com.amazonaws.services.dynamodbv2.xspec.S;
+
 import com.jerry.myproject.dto.Student;
 import com.jerry.myproject.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

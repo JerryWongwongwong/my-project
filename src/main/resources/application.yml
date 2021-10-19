@@ -1,4 +1,3 @@
-
 #服务端口号
 server:
   port: 8080
@@ -9,3 +8,27 @@ person:
   phone:
     -17621732503
     -17396732503
+
+
+#指定数据库驱动
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #数据库jdbc连接url地址,serverTimezone设置数据库时区东八区
+    url: jdbc:mysql://rm-bp10zvh24pwiji064ro.mysql.rds.aliyuncs.com:3306/zouwu-tenant?characterEncoding=utf-8&useSSL=false
+    #数据库账号
+    username: super
+    password: Wt7sgomRzhoq-
+
+    # redis
+  redis:
+    host: redis://r-bp1nigxllepc3q51p5pd.redis.rds.aliyuncs.com
+    port: 6379
+    timeout: 3
+    password: Wt7sgomRzhoq
+    pool:
+      minIdle: 1
+      maxIdle: 10
+      maxWait: 3
+      maxActive: 8
+

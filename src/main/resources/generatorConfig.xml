@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--参数配置-->
+    <properties resource="generator.properties"/>
+    <!--驱动jar-->
+    <classPathEntry
+            location="/Users/jerry/Documents/repository/mysql/mysql-connector-java/8.0.25/mysql-connector-java-8.0.25.jar"/>
+
+    <context id="CreateTables" targetRuntime="MyBatis3">
+
+        <!--数据库连接地址，用户名，密码-->
+        <jdbcConnection driverClass="${driverClass}" connectionURL="${connectionURL}"
+                        userId="${userId}" password="${password}">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--生成实体的包名和位置-->
+        <javaModelGenerator targetPackage="${modelTargetPackage}" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="${sqlMapTargetPackage}" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成dao的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${javaClientTargetPackage}" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--选择需要生成的表和生成的实体名-->
+        <table tableName="t_partner" domainObjectName="Partner">
+        </table>
+<!--        <table tableName="t_user" domainObjectName="User">-->
+<!--        </table>-->
+
+    </context>
+</generatorConfiguration>
