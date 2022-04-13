@@ -1,9 +1,14 @@
 package com.jerry.myproject.server.impl;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpResponse;
+import com.alibaba.fastjson.JSONObject;
+import com.jerry.myproject.dto.OrderListResultDTO;
 import com.jerry.myproject.server.UserService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -60,13 +65,13 @@ public class UserServiceImpl implements UserService {
         String a = "";
 
         for (Object l : l1) {
-            a+=l;
+            a += l;
         }
 
-        String  b ="";
+        String b = "";
 
         for (Object l : l2) {
-            b+=l;
+            b += l;
         }
 
         Integer integer = Integer.valueOf(a);
@@ -88,4 +93,41 @@ public class UserServiceImpl implements UserService {
 
         return null;
     }
+
+
+    public void testHttp() {
+
+        //可以单独传入http参数，这样参数会自动做URL编码，拼接在URL中
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("email", "test@test.com");
+        paramMap.put("password", "Test@123");
+        String jsonString = JSONObject.toJSONString(paramMap);
+
+        // 先登录获取到token
+        String loginUrl = "http://sat-public-api-64704567.us-east-1.elb.amazonaws.com/api/user/login";
+        HttpResponse execute = HttpRequest.post(loginUrl).body(jsonString).execute();
+        String body = execute.body();
+        System.out.println(JSONObject.toJSONString(body)+"===========");
+
+        String substring = body.substring(1, body.length() - 1);
+        // header中带有token信息获取其他接口
+        String authorizationValue = "Bearer " + substring;
+        String otherUrl = "http://sat-public-api-64704567.us-east-1.elb.amazonaws.com/api/order/list";
+        HashMap<String, Object> paramMap1 = new HashMap<>();
+        paramMap1.put("ordertype", "入库单");
+        String params = JSONObject.toJSONString(paramMap1);
+
+        HttpResponse execute1 = HttpRequest.get(otherUrl).body(params).header("Authorization", authorizationValue).execute();
+        String body1 = execute1.body();
+
+        System.out.println();
+        System.out.println(JSONObject.toJSONString(body1));
+        System.out.println();
+
+        OrderListResultDTO orderListDTO = JSONObject.parseObject(body1, OrderListResultDTO.class);
+        System.out.println(JSONObject.toJSONString(orderListDTO));
+
+
+    }
+
 }

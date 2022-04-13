@@ -1,6 +1,7 @@
 package com.jerry.myproject;
 
 
+import com.alibaba.fastjson.JSON;
 import com.jerry.myproject.entity.Order;
 import com.jerry.myproject.server.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -181,8 +186,6 @@ class MyProjectApplicationTests {
 //    }
 
 
-
-
     @Test
     public void testDrools() {
         KieServices kieServices = KieServices.Factory.get();
@@ -206,5 +209,118 @@ class MyProjectApplicationTests {
                 "，优惠后价格：" + order.getRealPrice());
     }
 
+
+    @Test
+    public void testHttp() {
+        userService.testHttp();
+    }
+
+
+    @Test
+    public void testPost() throws IOException {
+        String appKey = "922609183583371264";
+        String secret = "6d5929c4d6354237a98c3a66a6f160e7";
+        // 业务参数, 要用LinkedHashMap
+//        Map<String, String> jsonMap = new LinkedHashMap<String, String>();
+//        jsonMap.put("warehouseCode", "iphoneX");
+//        jsonMap.put("sku", "test");
+//        jsonMap.put("limit", "0");
+//        jsonMap.put("customerInfo", "{\"customerKey\":\"\"}");
+
+        String a = "{\"warehouseCode\":\"\",\"sku\":\"\",\"limit\":0,\"customerInfo\":{\"customerKey\":\"\"}}";
+//        String json = JSON.toJSONString(a);
+        String json = URLEncoder.encode(a, "utf-8");
+        System.out.println("======请求参数jsonStr======" + json);
+        // 系统参数
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("name", "zouwu.oms.stock.queryInventoryDetail");
+        param.put("app_key", appKey);
+        param.put("data", json);
+        param.put("format", "json");
+//        param.put("timestamp", getTime());
+        param.put("timestamp", "1646289707358");
+        param.put("version", "1.0");
+
+        String sign = buildSign(param, secret);
+        System.out.println("=======签名======" + sign);
+        param.put("sign", sign);
+
+        System.out.println("=====请求数据=====");
+        String postJson = JSON.toJSONString(param);
+        System.out.println(postJson);
+
+    }
+
+
+    public static String buildSign(Map<String, ?> paramsMap, String secret) throws IOException {
+        Set<String> keySet = paramsMap.keySet();
+        List<String> paramNames = new ArrayList<String>(keySet);
+
+        Collections.sort(paramNames);
+
+        StringBuilder paramNameValue = new StringBuilder();
+
+        for (String paramName : paramNames) {
+            paramNameValue.append(paramName).append(paramsMap.get(paramName));
+        }
+
+        String source = secret + paramNameValue.toString() + secret;
+        System.out.println("======加密字符串======"+ source);
+
+        return md5(source);
+    }
+
+    @Test
+    public void testSign() {
+        String a = "6d5929c4d6354237a98c3a66a6f160e7<app_key><922609183583371264><data><%7B%22warehouseCode%22%3A%22%22%2C%22sku%22%3A%22%22%2C%22limit%22%3A0%2C%22customerInfo%22%3A%7B%22customerKey%22%3A%22%22%7D%7D><format><json><timestamp><1646286776609><name><zouwu.oms.stock.queryInventoryDetail><version><1.0>6d5929c4d6354237a98c3a66a6f160e7";
+
+        System.out.println(md5(a));
+    }
+
+    /**
+     * 生成md5,全部大写
+     *
+     * @param message
+     * @return
+     */
+    public static String md5(String message) {
+        try {
+            // 1 创建一个提供信息摘要算法的对象，初始化为md5算法对象
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // 2 将消息变成byte数组
+            byte[] input = message.getBytes();
+
+            // 3 计算后获得字节数组,这就是那128位了
+            byte[] buff = md.digest(input);
+
+            // 4 把数组每一字节（一个字节占八位）换成16进制连成md5字符串
+            return byte2hex(buff);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 二进制转十六进制字符串
+     *
+     * @param bytes
+     * @return
+     */
+    private static String byte2hex(byte[] bytes) {
+        StringBuilder sign = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            String hex = Integer.toHexString(bytes[i] & 0xFF);
+            if (hex.length() == 1) {
+                sign.append("0");
+            }
+            sign.append(hex.toUpperCase());
+        }
+        return sign.toString();
+    }
+
+    public String getTime() {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+    }
 
 }
