@@ -3,7 +3,9 @@ package com.jerry.myproject;
 
 import com.alibaba.fastjson.JSON;
 import com.jerry.myproject.entity.Order;
+import com.jerry.myproject.server.DingService;
 import com.jerry.myproject.server.impl.UserServiceImpl;
+import com.jerry.myproject.util.PostTest;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.kie.api.KieServices;
@@ -31,6 +33,17 @@ class MyProjectApplicationTests {
 
     @Autowired
     private UserServiceImpl userService;
+
+    @Autowired
+    private DingService dingService;
+
+    @Test
+    public void testDing() throws IOException {
+
+        PostTest.testPost();
+//        dingService.testDing();
+    }
+
 
     @Test
     public void test() {
