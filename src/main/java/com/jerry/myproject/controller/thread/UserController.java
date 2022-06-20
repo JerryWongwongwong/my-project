@@ -1,17 +1,10 @@
 package com.jerry.myproject.controller.thread;
 
 
-import com.jerry.myproject.dto.Student;
 import com.jerry.myproject.server.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author Jerry
@@ -23,8 +16,8 @@ import java.util.List;
 public class UserController {
 
 
-//    @Autowired
-//    private UserService userService;
+    @Autowired
+    private UserService userService;
 
 
     /**
@@ -40,8 +33,6 @@ public class UserController {
 //        return num;
         return null;
     }
-
-
 
 
 }
