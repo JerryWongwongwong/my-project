@@ -23,8 +23,6 @@ public class AES {
      *
      * @author liuyazhuang
      */
-
-
     public static boolean initialized = false;
 
     /**
