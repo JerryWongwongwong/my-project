@@ -1,17 +1,9 @@
 package com.jerry.myproject.controller.thread;
 
 
-import com.jerry.myproject.dto.Student;
-import com.jerry.myproject.server.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author Jerry
@@ -23,28 +15,16 @@ import java.util.List;
 public class UserController {
 
 
-//    @Autowired
-//    private UserService userService;
-
-
-
-    //aaaa
-    //bgg
     /**
      * 统计用户数量 测试多实现
      *
      * @return
      */
-    @RequestMapping("/countUser")
+    @PostMapping("/countUser")
     public Integer countUser() {
 
-//        Integer num = userService.countUser();
-//        System.out.println(num);
-//        return num;
-        return null;
+        return 10000;
     }
-
-
 
 
 }
