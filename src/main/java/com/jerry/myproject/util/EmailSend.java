@@ -66,7 +66,7 @@ public class EmailSend {
 
         List<InternetAddress> userList = Lists.newArrayList(new InternetAddress("jinjw@olymtech.com"),new InternetAddress("chenrj@olymtech.com"));
         Object[] objects = userList.toArray();
-        message.setRecipient(Message.RecipientType.CC,new InternetAddress[]);
+//        message.setRecipient(Message.RecipientType.CC,new InternetAddress[]);
 
 
 
