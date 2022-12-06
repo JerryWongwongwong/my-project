@@ -231,27 +231,21 @@ class MyProjectApplicationTests {
 
     @Test
     public void testPost() throws IOException {
-        String appKey = "922609183583371264";
-        String secret = "6d5929c4d6354237a98c3a66a6f160e7";
-        // 业务参数, 要用LinkedHashMap
-//        Map<String, String> jsonMap = new LinkedHashMap<String, String>();
-//        jsonMap.put("warehouseCode", "iphoneX");
-//        jsonMap.put("sku", "test");
-//        jsonMap.put("limit", "0");
-//        jsonMap.put("customerInfo", "{\"customerKey\":\"\"}");
+        String appKey = "1019268392156135424";
+        String secret = "ac63bee283d847c1a226ab727186ce47";
 
-        String a = "{\"warehouseCode\":\"\",\"sku\":\"\",\"limit\":0,\"customerInfo\":{\"customerKey\":\"\"}}";
+        String a = "{\"businessType\":null,\"warehouseCode\":\"USCA1002\"}";
 //        String json = JSON.toJSONString(a);
         String json = URLEncoder.encode(a, "utf-8");
         System.out.println("======请求参数jsonStr======" + json);
         // 系统参数
         Map<String, Object> param = new HashMap<String, Object>();
-        param.put("name", "zouwu.oms.stock.queryInventoryDetail");
+        param.put("name", "zouwu.oms.system.queryDcChannel");
         param.put("app_key", appKey);
         param.put("data", json);
         param.put("format", "json");
 //        param.put("timestamp", getTime());
-        param.put("timestamp", "1646289707358");
+        param.put("timestamp", "2022-09-20 17:59:18");
         param.put("version", "1.0");
 
         String sign = buildSign(param, secret);

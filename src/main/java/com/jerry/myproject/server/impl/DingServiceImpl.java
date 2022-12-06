@@ -8,7 +8,11 @@ import com.jerry.myproject.server.DingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * CopyRight : 杭州大掌柜物流科技有限公司
@@ -24,6 +28,18 @@ import java.util.Collections;
 @Service
 @Slf4j
 public class DingServiceImpl implements DingService {
+
+
+    public static void main(String[] args) {
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        String format1 = format.format(new Date());
+
+        System.out.println(format1);
+
+
+    }
+
 
     String content = "@UserID's test_msg";
     String url = "https://oapi.dingtalk.com/robot/send?access_token=29bf2889315bfe4233005c894764da3b833cb3903bfb27425965fc80df8ff984";

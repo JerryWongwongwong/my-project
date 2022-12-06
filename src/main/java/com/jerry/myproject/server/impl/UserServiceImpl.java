@@ -5,11 +5,15 @@ import cn.hutool.http.HttpResponse;
 import com.alibaba.fastjson.JSONObject;
 import com.jerry.myproject.dto.OrderListResultDTO;
 import com.jerry.myproject.server.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Jerry
@@ -107,7 +111,7 @@ public class UserServiceImpl implements UserService {
         String loginUrl = "http://sat-public-api-64704567.us-east-1.elb.amazonaws.com/api/user/login";
         HttpResponse execute = HttpRequest.post(loginUrl).body(jsonString).execute();
         String body = execute.body();
-        System.out.println(JSONObject.toJSONString(body)+"===========");
+        System.out.println(JSONObject.toJSONString(body) + "===========");
 
         String substring = body.substring(1, body.length() - 1);
         // header中带有token信息获取其他接口
@@ -128,6 +132,42 @@ public class UserServiceImpl implements UserService {
         System.out.println(JSONObject.toJSONString(orderListDTO));
 
 
+    }
+
+//    public static void main(String[] args) throws JsonProcessingException {
+//        String json = "{\"ask\":\"Success\",\"code\":200,\"message\":\"Success\",\"count\":\"1\",\"nextPage\":\"false\",\"pagination\":{\"pageSize\":500,\"page\":1},\"data\":[{\"platform\":\"wayfairnew\",\"orderCode\":\"SO22091640017\",\"referenceNo\":\"wf-CS422256377\",\"sellerId\":\"wqian\",\"smCode\":\"WWL-FEDEX-SELF-EXPRESS-WAYBILL\",\"addTime\":\"2022-09-16 09:15:35\",\"orderPaydate\":\"2022-09-14 02:06:50\",\"orderStatus\":\"4\",\"ebay_total\":\"50.000\",\"currency_code\":\"USD\",\"warehouseCode\":\"USNJ1002\",\"warehouseName\":\"环世美东 USNJ1002 号仓\",\"channelCode\":\"WWL-FEDEX-SELF-EXPRESS-WAYBILL\",\"channelName\":\"环世wayfair发货渠道\",\"serviceProviderCode\":\"WAYFAIR\",\"serviceProviderName\":\"WAYFAIR\",\"receiptAddress\":{\"firstname\":\"Kim Hyatt\",\"lastname\":\"\",\"company\":\"\",\"country\":\"US\",\"postcode\":\"24523\",\"state\":\"VA\",\"city\":\"Bedford\",\"streetAddress1\":\"1290 Screechum Hollow Road\",\"streetAddress2\":\"\",\"doorplate\":\"\",\"phone\":\"3087303008\",\"cellPhone\":\"\",\"email\":\"\"},\"billingAddress\":{\"firstname\":\"Kim Hyatt\",\"lastname\":\"\",\"company\":\"\",\"country\":\"US\",\"postcode\":\"24523\",\"state\":\"VA\",\"city\":\"Bedford\",\"streetAddress1\":\"1290 Screechum Hollow Road\",\"streetAddress2\":\"\",\"doorplate\":\"\",\"phone\":\"3087303008\",\"cellPhone\":\"\",\"email\":\"\"},\"productList\":[{\"sku\":\"KBK-PB08GY-22\",\"platformSalesSku\":\"KBK-PB08GY-22\",\"quantity\":\"1\",\"product_title\":\"吧台茶几\",\"op_sales_price\":\"50.000\",\"declaredValue\":\"62.160\",\"declaredWeight\":\"11.600\",\"recvAccount\":\"\",\"refTnx\":\"\",\"refItemId\":\"KBK-PB08GY-22\",\"product_weight\":\"11.600\",\"warehouseProductBarcode\":\"KBK-PB08GY-22\"}]}],\"service\":\"getPreShippingOrder\",\"responseTime\":\"2022-09-16 09:30:01\"}";
+//
+//
+//        ErpResultDTO erpResultDTO1 = JSON.parseObject(json, ErpResultDTO.class);
+//        System.out.println(erpResultDTO1);
+//
+//        ObjectMapper configure = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//        ErpResultDTO erpResultDTO2 = configure.readValue(json, ErpResultDTO.class);
+//
+//        System.out.println(erpResultDTO2);
+//
+//        ErpResultDTO erpResultDTO = new ObjectMapper().readValue(json, ErpResultDTO.class);
+//        System.out.println(erpResultDTO);
+//
+//    }
+
+//    public static void main(String[] args) {
+//        String phoneNumber = " efa2334rwe  f234232312g sd";
+//        Pattern pattern = Pattern.compile("[^0-9]");
+//        Matcher matcher = pattern.matcher(phoneNumber);
+//        String s = matcher.toString();
+//        System.out.println(s);
+//        String trim = matcher.replaceAll("").trim();
+//        System.out.println(trim);
+//    }
+
+    public static void main(String[] args) {
+         String countryStr = "US,AU";
+
+        // 只有美国和澳大利亚才做二字码校验
+        Arrays.stream(countryStr.split(",")).filter(i -> i.equalsIgnoreCase("AU")).forEach(e -> {
+            System.out.println("====");
+        });
     }
 
 }
