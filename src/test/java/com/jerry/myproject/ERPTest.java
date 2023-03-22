@@ -34,6 +34,15 @@ import java.util.Set;
 public class ERPTest {
 
 
+
+    @Test
+    public void test12(){
+        String a = "1";
+
+        System.out.println(a.equals("1"));
+        System.out.println(a == "1");
+
+    }
     @Test
     public void testPost() throws IOException {
         String appKey = "1019268392156135424";

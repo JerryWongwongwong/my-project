@@ -41,17 +41,18 @@ public class ExclTest {
     @Test
     public void test1() {
 
-        for (int i = 0; i < 50000; i++) {
+        ZoneParamDTO zoneParamDTO = new ZoneParamDTO();
+        zoneParamDTO.setWarehouseCode("ECOF");
+        zoneParamDTO.setDispatchServiceCode("1");
+        WmsSystemWarehouseRelaRespDTO wmsSystemWarehouseRelaRespDTO = new WmsSystemWarehouseRelaRespDTO();
+        wmsSystemWarehouseRelaRespDTO.setWmsSystemCode("ecof");
+        zoneParamDTO.setWmsSystem(wmsSystemWarehouseRelaRespDTO);
+        zoneParamDTO.setDispatchServiceCode("12");
 
-//            try {
-//                Thread.sleep(8000);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-            int num = cacheService.getNum();
-            System.out.println("得到结果：" + num);
-        }
+        zoneParamDTO.postcodeParam("121", 4);
+//        zoneParamDTO.countryParam("us");
 
+        System.out.println(zoneParamDTO);
 
     }
 
