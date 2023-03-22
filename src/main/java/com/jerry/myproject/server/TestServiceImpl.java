@@ -21,8 +21,6 @@ import javax.annotation.PostConstruct;
 @Component
 public class TestServiceImpl{
 
-//implements ApplicationRunner
-//implements InitializingBean
 
     @PostConstruct
     public void testGuGu() throws Exception {
